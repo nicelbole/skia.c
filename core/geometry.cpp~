@@ -1,0 +1,23 @@
+void chop_cubic_at(const Point src[4], Point dst[7], Scalar t)
+{
+  Sk2s p0 = from_point(src[0]);
+  Sk2s p1 = from_point(src[1]);
+  Sk2s p2 = from_point(src[2]);
+  Sk2s p3 = from_point(src[3]);
+  Sk2s tt(t);
+
+  Sk2s ab = interp(p0, p1, tt);
+  Sk2s bc = interp(p1, p2, tt);
+  Sk2s cd = interp(p2, p3, tt);
+  Sk2s abc = interp(ab, bc, tt);
+  Sk2s bcd = interp(bc, cd, tt);
+  Sk2s abcd = interp(abc, bcd, tt);
+
+  dst[0] = src[0];
+  dst[1] = to_point(ab);
+  dst[2] = to_point(abc);
+  dst[3] = to_point(abcd);
+  dst[4] = to_point(bcd);
+  dst[5] = to_point(cd);
+  dst[6] = src[3];
+}

@@ -1,0 +1,67 @@
+#include <cstdlib>
+
+struct Deque
+{
+private:
+  void* front;
+  void* back;
+
+  Block* front_block;
+  Block* back_block;
+  size_t elem_size; //Dimensione di un singolo elemento
+  void* initial_storage;
+  int count; //Numero di elementi presenti
+  int alloc_count; //Numero di elementi da allocare per ogni blocco
+};
+
+struct Iter
+{
+  Block* cur_block;
+  char* pos;
+  int elem_size;
+}
+
+enum class IterStart {
+  Back, Front
+}
+
+Block* allocate_block(int);
+void free_block(Block*);
+
+Iter* create_iter();
+Iter* create_iter(Deque*, IterStart);
+void* next_iter(Deque*);
+void* prev_iter(Deque*);
+
+Deque* create_deque(size_t, int = 1);
+Deque* create_deque(size_t, void*, size_t, int = 1);
+int get_num_block_allocated_deque();
+void pop_back(Deque*);
+void pop_front(Deque*);
+void* push_back(Deque*);
+void* push_front(Deque*);
+
+inline const void* get_back_deque(Deque* deque)
+{
+  return deque->back;
+}
+
+inline int get_count_deque(Deque* deque)
+{
+  return deque->count;
+}
+
+inline size_t get_elem_size_deque(Deque* deque)
+{
+  return deque->elem_size;
+}
+
+inline const void* get_front_dequq(Deque* deque)
+{
+  return deque->front;
+}
+
+inline bool is_empty_deque(Deque* deque)
+{
+  return (deque->count == 0);
+}

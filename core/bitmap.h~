@@ -1,0 +1,4 @@
+struct Bitmap
+{
+  PixelRef* pixel_ref;
+};

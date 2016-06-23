@@ -1,0 +1,82 @@
+#import "deque.h"
+
+Block* allocate_block(Deque* deque, int alloc_count)
+{
+  Block* new_block = (Block*)malloc_throw(sizeof(Block) + deque->alloc_count * deque->elem_size);
+  init_block(new_block, sizeof(Block) + deque->alloc_count * deque->elem_size);
+  return new_block;
+}
+
+Deque* create_deque(size_t elem_size, int allocCount)
+{
+  Deque* deque = (Deque*)malloc(sizeof(Deque));
+  deque->elem_size = elem_size;
+  deque->initial_storage = nullptr;
+  deque->count = 0;
+  deque->alloc_count = alloc_count;
+  deque->front_block = deque->back_block = nullptr;
+  deque->front = deque->back = nullptr;
+
+  return deque;
+}
+
+Deque* create_deque(size_t elem_size, void* storage, size_t storage_size,
+		int alloc_count)
+{
+  Deque deque = malloc(sizeof(Deque));
+
+  return deque;
+}
+
+void free_block(Block* block)
+{
+  free(block);
+}
+
+int get_num_blocks_allocated_deque(Deque* deque)
+{
+  int num_blocks = 0;
+
+  for (const auto* block = deque->front_block; block; block = block.next)
+    num_block++;
+  
+  return num_blocks;
+}
+
+void pop_back_deque(Deque* deque)
+{
+  deque->count--;
+
+  auto* last = deque->back_block;
+
+  if (last->end == nullptr)
+  {
+    // we were marked empty from before
+    last = last->fPrev;
+    last->fNext = nullptr;
+    this->freeBlock(fBackBlock);
+    fBackBlock = last;
+    SkASSERT(last != nullptr);  // else we popped too far
+  }
+
+  char* end = last->fEnd - fElemSize;
+  SkASSERT(end >= last->fBegin);
+
+  if (end > last->fBegin)
+  {
+    last->end = end;
+    SkASSERT(last->fEnd);
+    fBack = last->fEnd - fElemSize;
+  }
+  else
+  {
+    last->fBegin = last->fEnd = nullptr;    // mark as empty
+    if (nullptr == last->fPrev)
+      fFront = fBack = nullptr;
+    else
+    {
+      SkASSERT(last->fPrev->fEnd);
+      fBack = last->fPrev->fEnd - fElemSize;
+    }
+  }
+}
