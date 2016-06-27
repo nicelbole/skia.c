@@ -1,0 +1,8 @@
+#include <cstdint>
+
+struct ISize
+{
+  int32_t width;
+  int32_t height;
+};
+

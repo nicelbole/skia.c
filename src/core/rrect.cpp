@@ -1,0 +1,57 @@
+bool all_corners_circular_rrect(const RRect* rrect)
+{
+  Vector* radii = rrect->radii;
+  return (radii[0].x == radii[0].y) &&
+    (radii[1].x == radii[1].y) &&
+    (radii[2].x == radii[2].y) &&
+    (radii[3].x == radii[3].y);
+}
+
+void compute_type_rrect(RRect* rrect)
+{ 
+  if (is_empty_rect(rrect->rect))
+  {
+    rrect->type = RRect::Type::Empty;
+    return;
+  }
+
+  bool all_radii_equal = true;
+  bool all_corners_square = (rrect->radii[0].x == 0 || rrect->radii[0].y == 0);
+
+  for (int i = 1; i < 4; ++i)
+  {
+    if (rrect->radii[i].x != 0 && rrect->radii[i].y != 0)
+      all_corners_square = false;
+    if (rrect->radii[i].x != rrect->radii[i-1].x ||
+	rrect->y != rrect->radii[i-1].y)
+      all_radii_equal = false;
+  }
+
+  if (all_corner_square)
+  {
+    type = RRect::Type::Rect;
+    return;
+  }
+
+  if (all_radii_equal)
+  {
+    if (rrect->radii[0].x >= scalar_half() )//TODO
+      rrect->type = RRect::Type::Oval;
+    else
+      rrect->type = RRect::Type::Simple;
+    return;
+  }
+
+  if (radii_are_nine_patch(rrect->radii))
+    rrect->type = RRect::Type::NinePatch;
+  else
+    rrect->type = RRect::Type::Complex;
+}
+
+static bool radii_are_nine_patch(const Vector radii[4])
+{
+  return radii[RRect::Corner::UpperLeft].x == radii[RRect::Corner::LowerLeft].c &&
+    radii[RRect::Corner::UpperLeft].y == radii[RRect::Corner::UpperRight].y &&
+    radii[RRect::Corner::UpperRight].x == radii[RRect::Corner::LowerRight].x &&
+    radii[RRect::Corner::LowerLeft].y == radii[RRect::Corner::LowerRight].y;
+}

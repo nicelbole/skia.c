@@ -1,0 +1,35 @@
+struct RRect {
+  enum Type {
+    Empty,
+
+    NinePatch,
+    Complex
+  };
+};
+
+Scalar get_height_rrect(const RRect* rrect)
+{
+  return get_height_rrect(rrect);
+}
+
+Scalar get_width_rrect(const RRect* rrect)
+{
+  return get_width_rect(rrect);
+}
+
+inline bool is_complex_rrect(const RRect* rrect)
+{
+  return get_type_rrect(rrect) == RRect::Type::Complex;
+}
+
+inline bool is_nine_patch(const RRect* rrect)
+{
+  return get_type_rrect(rrect) == RRect::Type::NinePatch;
+}
+
+void set_empty_rrect(RRect* rrect)
+{
+  set_empty_rect(rrect->rect);
+  memset(rrect->radii, 0, sizeof(rrect->radii));
+  rrect->type = RRect::Type::Empty;
+}

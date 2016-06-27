@@ -12,13 +12,13 @@
 CubicClipper create_cubic_clipper()
 {
   CubicClipper clipper = (CubicClipper*)malloc(sizeof(CubicClipper));
-  set_empty_clipper(clipper->clip);
+  set_empty_rect(clipper->clip);
   return clipper;
 }
 
 void set_clip_cubic_clipper(CubicClipper* clipper, const IRect& clip)
 {
-  set_clip_irect(clipper->clip, clipper->clip);
+  set_rect(clipper->clip, clipper->clip);
 }
 
 
