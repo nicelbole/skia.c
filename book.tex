@@ -1,0 +1,8 @@
+Regions
+The SkRegion class contains an Iterator class, which can be used to traverse the rectangles that compose a region object.
+This Iterator class contains four fields, all private: fRgn, fRuns, fRect, fDone. fRgn can be accessed through the rgn() getter; fRect through rect() and fDone  through fDone.
+There are two constructor. The first takes no arguments and, actually, doesn't return an usable Iterator (since it is associated to Region). Such an Iterator needs a call to reset before being usable. The second constructor, instead, take a const SkRegion& parameter; the only thing it does anyway is calling reset().
+reset sets fRgn to rgn; it then checks for the run type of rgn and takes different decision in the three cases.
+If rgn is empty, it sets fDone to true (nothing to traverse!) and returns.
+If rgn is a rect, fDone is false (still one rectangle to traverse), fRect set to rgn.fBounds and fRuns to nullptr.
+In the remaning case, if rgn is complex, fDone is false, fRect is ignored (not set to anything) and fRuns is set in a way we'll explain in a moment.

@@ -1,0 +1,36 @@
+#include <cstdint>
+
+struct IRect
+{
+  int32_t left;
+  int32_t top;
+  int32_t right;
+  int32_t bottom;
+};
+
+IRect make_empty_irect()
+{
+  IRect r;
+  set_empty_irect(&r);
+  return r;
+}
+
+IRect make_largest_irect()
+{
+  IRect r;
+  set_largest_irect(r);
+  return r;
+}
+
+IRect make_wh_irect(int32_t w, int32_t h)
+{
+  IRect r;
+  set_irect(0, 0, w, h);
+  return r;
+}
+
+void set_largest(IRect& irect)
+{
+  irect->left = irect->top = ScalarMin;
+  irect->right = irect->bottom = ScalarMax;
+}

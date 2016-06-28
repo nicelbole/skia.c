@@ -1,0 +1,10 @@
+void draw_rrect_bitmap_device(BitmapDevice* device, const Draw& draw, RRect& rect, Paint& paint)
+{
+#ifdef SK_IGNORE_BLURRED_RRECT_OPT
+  Path path;
+  add_rrect_path(path, rrect);
+  draw_path_device(device, draw, path, paint, nullptr, true);
+#else
+  draw_rrect_draw(draw, rrect, paint);
+#endif
+}
