@@ -6,6 +6,4 @@
  */
 
 __attribute__((deprecated))
-bool install_discardable_pixel_ref(ImageGenerator*, Bitmap)
-{
-}
+bool install_discardable_pixel_ref(ImageGenerator*, Bitmap);

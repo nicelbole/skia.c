@@ -16,3 +16,4 @@ struct Region
 Region* create_region();
 Region* create_region(const Region&);
 bool get_boundary_path_region(const Region*, Path* path);
+bool op();
