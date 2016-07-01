@@ -16,3 +16,5 @@ struct TableMaskFilter : public MaskFilter
 {
   uint8_t table[256];
 };
+
+static MaskFilter* create_gamma_mask_filter(Scalar);
