@@ -1,3 +1,33 @@
+/*
+ * Copyright 2011 Google Inc.
+ *
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
+#include <table_mask_filter.h>
+
+TableMaskFilter* create_table_mask_filter()
+{
+  TableMaskFilter* filter = (TableMaskFilter*)malloc(sizeof(TableMaskFilter));
+  for (int i = 0; i < 256; i++)
+    filter->table[i] = i;
+  return filter;
+}
+
+TableMaskFilter* create_table_mask_filter(TableMaskFilter* filter, const uint8_t table[256])
+{
+  TableMaskFilter* filter = (TableMaskFilter*)malloc(sizeof(TableMaskFilter));
+  memcpy(filter->table, table, sizeof(filter->table));
+  return filter;
+}
+
+void delete_table_mask_filter(TableMaskFilter* filter)
+{
+  free(filter);
+}
+
+
 /* Costruisce la tavola del gamma: table[x] = (x/255.)^gamma */
 static void make_gamma_table(uint8_t table[256], Scalar gamma)
 {
