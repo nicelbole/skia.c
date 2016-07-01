@@ -5,7 +5,17 @@
  * found in the LICENSE file.
  */
 
+#include <cstdint>
 #include <table_mask_filter.h>
+
+static void make_gamma_table(uint8_t[256], Scalar);
+
+static SkMaskFilter* create_gamma_mask_filter(SkScalar gamma)
+{
+  uint8_t table[256];
+  make_gamma_table(table, gamma);
+  return create_table_mask_filter(table);
+}
 
 TableMaskFilter* create_table_mask_filter()
 {
@@ -27,9 +37,8 @@ void delete_table_mask_filter(TableMaskFilter* filter)
   free(filter);
 }
 
-
 /* Costruisce la tavola del gamma: table[x] = (x/255.)^gamma */
-static void make_gamma_table(uint8_t table[256], Scalar gamma)
+void make_gamma_table(uint8_t table[256], Scalar gamma)
 {
   const float dx = 1 / 255.0f;
   const float g = scalar_to_float(gamma);
